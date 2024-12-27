@@ -1,0 +1,17 @@
+body{
+    background-color: rgb(17, 10, 16);
+    color: aquamarine;
+}   
+
+header{
+    display: flex;
+    height: 80px;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+img{
+    border-radius: 50%;
+    height: 80%;
+}
