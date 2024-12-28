@@ -1,4 +1,8 @@
-import header from "./header.js"
 import "./style.css"
-import container from "./sideTab.js"
-import addTodoBtn from "./domModule.js"
+
+import { sidetab } from "./sideTab"
+
+document.addEventListener("DOMContentLoaded", () => {
+    let aside = document.querySelector("aside")
+    sidetab.render(aside)
+})

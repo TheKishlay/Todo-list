@@ -6,10 +6,50 @@
     <title>Todo List</title>
 </head>
 <body>
-    <header>
-    </header>
-    <div class = "container">
-
+    <div class="wrapper">
+        <header>
+            <img src="Images/Todo Logo.jpg" alt="logo">
+            <h1>TODO LIST</h1>
+        </header>
+        <main>
+            <!-- Task details will be loaded here -->
+        </main>
+        <aside>
+            <!-- Task lists will be loaded here along with new task addition button -->
+        </aside>
     </div>
+
+    <template id="taskList">
+        <div class="task-container"><ul></ul></div>
+    </template>
+
+    <template id="addTaskBtn">
+        <div class="add-task-btn"><button id="addBtn">Add New Task</button></div>
+    </template>
+
+    <template id="taskformtemplate">
+        <dialog>
+            <form id= "form" action="" method="dialog">
+                <fieldset>
+                    <legend>Enter Task Details:</legend>
+
+                    <label for="title">Enter Title:</label>
+                    <input type="text" name="title" id="title" required/>
+
+                    <label for="description">Enter Description:</label>
+                    <textarea name="description" id="description" required></textarea>
+
+                    <label for="dueDate">Enter Due Date:</label>
+                    <input type="date" name="dueDate" id="dueDate">
+
+                    <label for="priority">Priority</label>
+                    <input type="range" min="0" max="5">
+                </fieldset>
+                <button id="submit">Add</button> <button value="Cancel" formmethod="dialog" formnovalidate>Cancel</button>
+
+            </form>
+        </dialog>
+    </template>
+
 </body>
 </html>
