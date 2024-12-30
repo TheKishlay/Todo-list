@@ -19,33 +19,47 @@
         </aside>
     </div>
 
-    <template id="taskList">
-        <div class="task-container"><ul></ul></div>
+    <template id="projectTemplate">
+        <div class="project-container">
+            <ul></ul>
+        </div>
     </template>
 
-    <template id="addTaskBtn">
-        <div class="add-task-btn"><button id="addBtn">Add New Task</button></div>
+    <template id="taskContainerTemplate">
+        <div class="task-container"></div>
+        <div class="add-task-btn"><button id="addTaskBtn">Add New Task</button></div>
+    </template>
+
+    <template id="taskTemplate">
+        <li class="task">
+            <h2 class="task-title"></h2>
+            <p class="task-notes"></p>
+            <p class="task-due-date "></p>
+            <p class="task-priority"></p>
+            <button class="editTask">Edit</button>
+            <button class="deleteTask">Delete</button>
+        </li>
     </template>
 
     <template id="taskformtemplate">
         <dialog>
-            <form id= "form" action="" method="dialog">
+            <form id= "form" action="" method="get">
                 <fieldset>
                     <legend>Enter Task Details:</legend>
 
                     <label for="title">Enter Title:</label>
                     <input type="text" name="title" id="title" required/>
 
-                    <label for="description">Enter Description:</label>
-                    <textarea name="description" id="description" required></textarea>
+                    <label for="notes">Enter Notes:</label>
+                    <textarea name="notes" id="notes" required></textarea>
 
                     <label for="dueDate">Enter Due Date:</label>
                     <input type="date" name="dueDate" id="dueDate">
 
                     <label for="priority">Priority</label>
-                    <input type="range" min="0" max="5">
+                    <input type="range" name= "priority" min="0" max="5">
                 </fieldset>
-                <button id="submit">Add</button> <button value="Cancel" formmethod="dialog" formnovalidate>Cancel</button>
+                <button id="submit-task">Add</button> <button value="Cancel" formmethod="dialog" formnovalidate>Cancel</button>
 
             </form>
         </dialog>
