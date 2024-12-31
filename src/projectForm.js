@@ -1,7 +1,7 @@
-import {addProject} from "./projectModal.js"
+import { addProject } from "./projectModal.js"
 
 
-export function projectForm(){
+export function projectForm() {
     const projectInfoBox = document.createElement("dialog")
     projectInfoBox.classList.add("project-info-box")
     const input = document.createElement("input")
