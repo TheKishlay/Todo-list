@@ -1,7 +1,7 @@
 import { pubsub } from "./pubsub"
 
 export function CreateTask(title, notes, dueDate, priority) {
-    return {title, notes, dueDate, priority}
+    return { title, notes, dueDate, priority }
 }
 
 export function deleteTask(project, task) {

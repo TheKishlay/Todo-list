@@ -1,7 +1,7 @@
 import { pubsub } from "./pubsub.js"
 import { CreateTask, addTask } from "./taskModal.js"
 
-export function taskForm(project){
+export function taskForm(project) {
     let taskformtemplate = document.querySelector("#taskformtemplate")
     let div = taskformtemplate.content.cloneNode(true)
     let wrapper = document.querySelector(".wrapper")
@@ -20,11 +20,11 @@ export function taskForm(project){
         let notes = form.notes.value
         let dueDate = form.dueDate.value
         let priority = form.priority.value
-        // pubsub.publish("formsubmitted", form)
         // pubsub.publish("formsubmitted", project)
         let task = CreateTask(title, notes, dueDate, priority)
+        // pubsub.publish("formsubmitted", [project, task])
+        // pubsub.publish("formsubmitted", task)
         addTask(project, task)
-        // return task
         taskformbox.remove()
     })
 

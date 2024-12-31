@@ -1,5 +1,5 @@
 import { taskForm } from "./taskForm";
-import { deleteTask } from "./taskModal";
+import { addTask, deleteTask } from "./taskModal";
 import { pubsub } from "./pubsub";
 import { projectList } from "./projectModal";
 
@@ -11,12 +11,12 @@ export const taskDOM = {
         let div = taskContainerTemplate.content.cloneNode(true)
         container.innerHTML = ""
         container.appendChild(div)
-        
-        if (!(projectList.some(obj => obj['title'] === project['title']))){
+
+        if (!(projectList.some(obj => obj['title'] === project['title']))) {
             container.innerHTML = "No project"
             return
         }
-    
+
         if (project.tasks.length === 0) {
             let taskContainer = document.querySelector(".task-container")
             taskContainer.innerHTML = "No tasks added yet"
@@ -35,9 +35,14 @@ export const taskDOM = {
             })
         }
 
-            let addtaskbtn = document.querySelector(".add-task-btn")
-            addtaskbtn.addEventListener("click", () => taskForm(project))
-            pubsub.subscribe("taskadded", taskDOM.addTask)
+        let addtaskbtn = document.querySelector(".add-task-btn")
+        addtaskbtn.addEventListener("click", () => {
+            taskForm(project)
+            // pubsub.subscribe("formsubmitted", addTask)
+            // addTask(project, task)
+            // taskForm(project)
+        })
+        pubsub.subscribe("taskadded", taskDOM.addTask)
     },
 
     //Adding task to the project
@@ -60,41 +65,45 @@ export const taskDOM = {
                 deleteTask(project, task)
                 console.log(projectList)
             })
-            
+
             const edittaskbtn = taskDiv.querySelector(".editTask")
             taskContainer.appendChild(taskDiv)
-            //Adding the edit task button event listener
+            // Adding the edit task button event listener
             edittaskbtn.addEventListener("click", (edittaskbtn) => {
-                let taskDiv = edittaskbtn.target.closest("li");
+                let taskDiv = edittaskbtn.target.closest("li")
                 const taskTitle = taskDiv.querySelector(".task-title");
                 const taskNotes = taskDiv.querySelector(".task-notes");
                 const taskDueDate = taskDiv.querySelector(".task-due-date");
                 const taskPriority = taskDiv.querySelector(".task-priority");
 
-                taskTitle.contentEditable = true;
-                taskNotes.contentEditable = true;
-                taskDueDate.contentEditable = true;
-                taskPriority.contentEditable = true;
+                const index = project.tasks.findIndex(el =>
+                    el.title === taskTitle.textContent &&
+                    el.notes === taskNotes.textContent &&
+                    el.dueDate === taskDueDate.textContent &&
+                    el.priority === taskPriority.textContent
+                )
 
-                const saveButton = document.createElement("button");
-                saveButton.textContent = "Save";
-                taskDiv.appendChild(saveButton);
-
-                saveButton.addEventListener("click", () => {
-                    task.title = taskTitle.textContent;
-                    task.notes = taskNotes.textContent;
-                    task.dueDate = taskDueDate.textContent;
-                    task.priority = taskPriority.textContent;
-
-                    taskTitle.contentEditable = false;
-                    taskNotes.contentEditable = false;
-                    taskDueDate.contentEditable = false;
-                    taskPriority.contentEditable = false;
-
-                    saveButton.remove();
-                    pubsub.publish("taskedited", project);
+                const formTemplate = document.querySelector("#taskformtemplate")
+                const div = formTemplate.content.cloneNode(true)
+                taskDiv.appendChild(div)
+                const taskformbox = document.querySelector("dialog")
+                taskformbox.showModal()
+                let form = document.querySelector("#form")
+                const submit = document.querySelector("#submit-task")
+                submit.innerHTML = "Save"
+                submit.addEventListener("click", (e) => {
+                    e.preventDefault()
+                    project.tasks[index].title = form.title.value
+                    project.tasks[index].notes = form.notes.value
+                    project.tasks[index].dueDate = form.dueDate.value
+                    project.tasks[index].priority = form.priority.value
+                    taskTitle.textContent = form.title.value
+                    taskNotes.textContent = form.notes.value
+                    taskDueDate.textContent = form.dueDate.value
+                    taskPriority.textContent = form.priority.value
+                    taskformbox.remove()
                 })
-            })  
+            })
         })
     }
 }

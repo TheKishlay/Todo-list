@@ -1,17 +1,74 @@
-body{
-    background-color: rgb(17, 10, 16);
-    color: aquamarine;
-}   
-
-header{
-    display: flex;
-    height: 80px;
-    justify-content: center;
-    gap: 20px;
-    align-items: center;
+body {
+  margin: 0;
+  background-color: rgb(17, 10, 16);
+  color: aquamarine;
 }
 
-img{
-    border-radius: 50%;
-    height: 80%;
+header {
+  display: flex;
+  height: 15vh;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  /* border-bottom: 1px solid rgb(170, 189, 134); */
+  background-color: #111111;
+}
+
+img {
+  border-radius: 50%;
+  height: 80%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+}
+
+main {
+  background-color: #232323;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 85vh;
+  justify-content: space-between;
+  align-items: center;
+  /* border-left: 1px solid rgb(170, 189, 134); */
+  -webkit-box-shadow: inset -3px -20px 160px 13px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: inset -3px -20px 160px 13px rgba(0, 0, 0, 0.75);
+  box-shadow: inset -3px -20px 160px 13px rgba(0, 0, 0, 0.75);
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+  background-color: #111111;
+  justify-content: center;
+  width: 20%;
+}
+
+li {
+  list-style: none;
+}
+
+.project-item {
+  display: flex;
+}
+
+.task-container {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+#addTaskBtn {
+  margin-bottom: 30px;
 }

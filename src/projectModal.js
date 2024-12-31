@@ -4,7 +4,7 @@ export let projectList = []
 
 export function CreateProject(title) {
     let tasks = []
-    return {title, tasks}
+    return { title, tasks }
 }
 
 export function deleteProject(project) {
