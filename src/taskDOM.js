@@ -4,7 +4,9 @@ import { pubsub } from "./pubsub";
 import { projectList } from "./projectModal";
 
 export const taskDOM = {
+
     //rendering task on main container
+
     render: (container, project) => {
 
         let taskContainerTemplate = document.querySelector("#taskContainerTemplate")
@@ -38,26 +40,25 @@ export const taskDOM = {
         let addtaskbtn = document.querySelector(".add-task-btn")
         addtaskbtn.addEventListener("click", () => {
             taskForm(project)
-            // pubsub.subscribe("formsubmitted", addTask)
-            // addTask(project, task)
-            // taskForm(project)
         })
         pubsub.subscribe("taskadded", taskDOM.addTask)
     },
 
     //Adding task to the project
+
     addTask: project => {
         let taskContainer = document.querySelector(".task-container")
         taskContainer.innerHTML = ""
         project.tasks.forEach(task => {
             let taskTemplate = document.querySelector("#taskTemplate")
             let taskDiv = taskTemplate.content.cloneNode(true)
-            // taskDiv.className="taskDiv"
             taskDiv.querySelector(".task-title").textContent = task.title
             taskDiv.querySelector(".task-notes").textContent = task.notes
             taskDiv.querySelector(".task-due-date").textContent = task.dueDate
             taskDiv.querySelector(".task-priority").textContent = task.priority
+
             //Adding the delete task button event listener
+
             const deletetaskbtn = taskDiv.querySelector(".deleteTask")
             deletetaskbtn.addEventListener("click", () => {
                 const li = deletetaskbtn.closest("li")
@@ -68,7 +69,9 @@ export const taskDOM = {
 
             const edittaskbtn = taskDiv.querySelector(".editTask")
             taskContainer.appendChild(taskDiv)
+
             // Adding the edit task button event listener
+
             edittaskbtn.addEventListener("click", (edittaskbtn) => {
                 let taskDiv = edittaskbtn.target.closest("li")
                 const taskTitle = taskDiv.querySelector(".task-title");
@@ -83,6 +86,8 @@ export const taskDOM = {
                     el.priority === taskPriority.textContent
                 )
 
+                //Creatig separate dialog box for editing
+                
                 const formTemplate = document.querySelector("#taskformtemplate")
                 const div = formTemplate.content.cloneNode(true)
                 taskDiv.appendChild(div)

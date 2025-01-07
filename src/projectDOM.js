@@ -1,10 +1,12 @@
 import { pubsub } from "./pubsub"
 import { projectForm } from "./projectForm"
-import { deleteProject } from "./projectModal" // rempved addProject from here
+import { deleteProject } from "./projectModal"
 import { taskDOM } from "./taskDOM"
 
 export const project = {
+
     //rendering the project DOM
+
     render: container => {
         let template = document.querySelector("#projectTemplate")
         let div = template.content.cloneNode(true)
@@ -15,11 +17,15 @@ export const project = {
         addProjectbtn.classList.add("add-project-btn")
         addProjectbtn.addEventListener("click", projectForm)
         container.appendChild(addProjectbtn)
+
         //Subscribing to the projectadded event
+
         pubsub.subscribe("projectadded", project.addProject)
         pubsub.subscribe("projectdeleted", project.addProject)
     },
+
     //Adding the project to the project list
+
     addProject: projects => {
         let projectList = document.querySelector(".project-container ul")
         projectList.innerHTML = ""
@@ -35,7 +41,9 @@ export const project = {
                 li.remove()
                 deleteProject(project)
             })
+
             //adding the event listener to open the task
+
             const main = document.querySelector("main")
             projectItem.addEventListener("click", () => taskDOM.render(main, project))
 

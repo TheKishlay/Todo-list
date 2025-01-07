@@ -10,20 +10,16 @@ export function taskForm(project) {
     taskformbox.showModal()
     let form = document.querySelector("#form")
     let submit = document.querySelector("#submit-task")
+
+    //Event listener for submit buttton
+    
     submit.addEventListener("click", (e) => {
         e.preventDefault()
-        // let title = document.querySelector(".task-title").value
-        // let notes = document.querySelector(".task-notes").value
-        // let dueDate = document.querySelector(".task-due-date").value
-        // let priority = document.querySelector(".task-priority").value
         let title = form.title.value
         let notes = form.notes.value
         let dueDate = form.dueDate.value
         let priority = form.priority.value
-        // pubsub.publish("formsubmitted", project)
         let task = CreateTask(title, notes, dueDate, priority)
-        // pubsub.publish("formsubmitted", [project, task])
-        // pubsub.publish("formsubmitted", task)
         addTask(project, task)
         taskformbox.remove()
     })
