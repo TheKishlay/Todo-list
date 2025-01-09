@@ -12,6 +12,6 @@ export function deleteTask(project, task) {
 }
 
 export function addTask(project, task) {
-    project.tasks.push(task)
+    project[Object.keys(project)[0]].push(task)
     pubsub.publish("taskadded", project)
 }

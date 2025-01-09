@@ -1,6 +1,6 @@
 import { pubsub } from "./pubsub"
 import { projectForm } from "./projectForm"
-import { deleteProject } from "./projectModal"
+import { deleteProject, projectList } from "./projectModal"
 import { taskDOM } from "./taskDOM"
 
 export const project = {
@@ -18,9 +18,15 @@ export const project = {
         addProjectbtn.addEventListener("click", projectForm)
         container.appendChild(addProjectbtn)
 
+        if (localStorage.getItem("projectList")) {
+            let projects = JSON.parse(localStorage.getItem("projectList"))
+            projectList.push(...projects)
+            project.addProject(projects)
+        }
+
         //Subscribing to the projectadded event
 
-        pubsub.subscribe("projectadded", project.addProject)
+        pubsub.subscribe("projectaddedToStorage", project.addProject)
         pubsub.subscribe("projectdeleted", project.addProject)
     },
 
@@ -33,11 +39,12 @@ export const project = {
             let projectItem = document.createElement("li")
             projectItem.classList.add("project-item")
 
-            projectItem.innerHTML = `${project.title} <button class="delete-project">X</button>`
+            projectItem.innerHTML = `${Object.keys(project)[0]} <button class="delete-project">X</button>`
             const deleteProjectBtn = projectItem.querySelector(".delete-project")
             deleteProjectBtn.addEventListener("click", () => {
                 projectItem.removeEventListener("click", () => taskDOM.render(main, project))
                 const li = deleteProjectBtn.closest("li")
+                localStorage.removeItem
                 li.remove()
                 deleteProject(project)
             })

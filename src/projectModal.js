@@ -1,10 +1,12 @@
 import { pubsub } from "./pubsub"
+import { saveProjects } from "./storage"
 
-export let projectList = []
+export let projectList = localStorage.getItem("projectList") ? JSON.parse(localStorage.getItem("projectList")) : []
 
 export function CreateProject(title) {
-    let tasks = []
-    return { title, tasks }
+    let obj = {}
+    obj[title] = []
+    return obj
 }
 
 export function deleteProject(project) {
@@ -14,5 +16,5 @@ export function deleteProject(project) {
 
 export function addProject(title) {
     projectList.push(CreateProject(title))
-    pubsub.publish("projectadded", projectList)
+    saveProjects(projectList)
 }

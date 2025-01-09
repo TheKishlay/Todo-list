@@ -19,14 +19,14 @@ export const taskDOM = {
             return
         }
 
-        if (project.tasks.length === 0) {
+        if (Object.keys(project)[0] .length === 0) {
             let taskContainer = document.querySelector(".task-container")
             taskContainer.innerHTML = "No tasks added yet"
         }
         else {
             let taskContainer = document.querySelector(".task-container")
             taskContainer.innerHTML = ""
-            project.tasks.forEach(task => {
+            project[Object.keys(project)[0]].forEach(task => {
                 let taskTemplate = document.querySelector("#taskTemplate")
                 let taskDiv = taskTemplate.content.cloneNode(true)
                 taskDiv.querySelector(".task-title").textContent = task.title
@@ -47,9 +47,10 @@ export const taskDOM = {
     //Adding task to the project
 
     addTask: project => {
+        let taskList = project[Object.keys(project)[0]]
         let taskContainer = document.querySelector(".task-container")
         taskContainer.innerHTML = ""
-        project.tasks.forEach(task => {
+        taskList.forEach(task => {
             let taskTemplate = document.querySelector("#taskTemplate")
             let taskDiv = taskTemplate.content.cloneNode(true)
             taskDiv.querySelector(".task-title").textContent = task.title
@@ -79,7 +80,7 @@ export const taskDOM = {
                 const taskDueDate = taskDiv.querySelector(".task-due-date");
                 const taskPriority = taskDiv.querySelector(".task-priority");
 
-                const index = project.tasks.findIndex(el =>
+                const index = taskList.findIndex(el =>
                     el.title === taskTitle.textContent &&
                     el.notes === taskNotes.textContent &&
                     el.dueDate === taskDueDate.textContent &&
