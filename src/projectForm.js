@@ -1,7 +1,7 @@
 import { addProject } from "./projectModal.js"
 
 
-export function projectForm() {
+export function projectForm(projects) {
 
     //Adding dialog box for submitting information
 
@@ -32,10 +32,10 @@ export function projectForm() {
     projectInfoBox.showModal()
 
     //Event listener for submit button
-    
+
     submit.addEventListener("click", () => {
         let title = input.value
-        addProject(title)
+        addProject(title, projects)
         projectInfoBox.remove()
     })
 }

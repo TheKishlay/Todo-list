@@ -1,7 +1,7 @@
 import { pubsub } from "./pubsub.js"
-import { CreateTask, addTask } from "./taskModal.js"
+import { CreateTask, addTask, validateDate } from "./taskModal.js"
 
-export function taskForm(project) {
+export function taskForm(projects, projectPointer) {
     let taskformtemplate = document.querySelector("#taskformtemplate")
     let div = taskformtemplate.content.cloneNode(true)
     let wrapper = document.querySelector(".wrapper")
@@ -11,17 +11,25 @@ export function taskForm(project) {
     let form = document.querySelector("#form")
     let submit = document.querySelector("#submit-task")
 
+    console.log(projects)
+
     //Event listener for submit buttton
-    
+
     submit.addEventListener("click", (e) => {
-        e.preventDefault()
-        let title = form.title.value
-        let notes = form.notes.value
-        let dueDate = form.dueDate.value
-        let priority = form.priority.value
-        let task = CreateTask(title, notes, dueDate, priority)
-        addTask(project, task)
-        taskformbox.remove()
+        if (!validateDate(form.dueDate.value)) {
+            alert("Enter valid date!")
+            e.preventDefault()
+        }
+        else {
+            e.preventDefault()
+            let title = form.title.value
+            let notes = form.notes.value
+            let dueDate = new Date(form.dueDate.value).toDateString()
+            let priority = form.priority.value
+            let task = CreateTask(title, notes, dueDate, priority)
+            addTask(projects, projectPointer, task)
+            taskformbox.remove()
+        }
     })
 
 }
